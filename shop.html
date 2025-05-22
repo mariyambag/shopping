@@ -2,505 +2,235 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mariyam's Shop</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop - Mariyam's Boutique</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg-color: #fff8dc;
-      --header-bg: #ffefd5;
-      --text-color: #5a4631;
-      --accent-color: #eecbad;
-      --hover-color: #d8bfa8;
-      --btn-bg: #5a4631;
-      --btn-hover: #3e2e1f;
-    }
-
     body {
       margin: 0;
-      font-family: 'Montserrat', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      overflow-x: hidden;
-    }
-
-    /* Hamburger (same as portfolio) */
-    .hamburger {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      width: 30px;
-      height: 22px;
-      cursor: pointer;
-      z-index: 1002;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .hamburger span {
-      display: block;
-      height: 4px;
-      border-radius: 3px;
-      background-color: var(--text-color);
-      transition: all 0.3s ease;
-    }
-
-    .hamburger.active span:nth-child(1) {
-      transform: translateY(9px) rotate(45deg);
-    }
-    .hamburger.active span:nth-child(2) {
-      opacity: 0;
-    }
-    .hamburger.active span:nth-child(3) {
-      transform: translateY(-9px) rotate(-45deg);
-    }
-
-    nav {
-      position: fixed;
-      top: 0;
-      right: -250px;
-      width: 220px;
-      height: 100vh;
-      background-color: var(--header-bg);
-      box-shadow: -2px 0 8px rgba(0,0,0,0.15);
-      padding-top: 80px;
-      transition: right 0.3s ease;
-      z-index: 1001;
-    }
-
-    nav.open {
-      right: 0;
-    }
-
-    nav a {
-      display: block;
-      padding: 15px 25px;
-      color: var(--text-color);
-      font-weight: 600;
-      text-decoration: none;
-      font-size: 1.1rem;
-      border-bottom: 1px solid var(--accent-color);
-      transition: background-color 0.3s ease;
-    }
-
-    nav a:hover {
-      background-color: var(--hover-color);
+      font-family: 'Poppins', sans-serif;
+      background-color: #fdf6ef;
+      color: #333;
+      transition: background-color 0.4s ease, color 0.4s ease;
     }
 
     header {
-      background-color: var(--header-bg);
-      text-align: center;
-      padding: 40px 20px 60px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      position: relative;
-      z-index: 1;
+      background-color: #c8b6a6;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
     header h1 {
-      margin: 0;
-      font-size: 2.8rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: var(--text-color);
+      font-size: 1.8rem;
+      color: #3e2723;
     }
 
-    main {
-      max-width: 960px;
-      margin: 40px auto;
-      padding: 0 20px 80px;
+    nav {
+      display: flex;
+      gap: 1rem;
     }
 
-    /* Product grid */
-    .product-grid {
+    nav a {
+      text-decoration: none;
+      color: #3e2723;
+      font-weight: 600;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 4px;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: #3e2723;
+      border-radius: 5px;
+    }
+
+    .menu {
+      display: flex;
+    }
+
+    @media (max-width: 768px) {
+      .menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background-color: #c8b6a6;
+        padding: 1rem;
+        border-radius: 8px;
+      }
+
+      .menu.active {
+        display: flex;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    .products {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
     }
 
-    .product-card {
+    .card {
       background-color: #fff;
       border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(90,70,49,0.15);
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.3s ease;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.3s;
     }
 
-    .product-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 12px 30px rgba(90,70,49,0.25);
+    .card:hover {
+      transform: scale(1.03);
     }
 
-    .product-image {
+    .card img {
       width: 100%;
-      height: 180px;
+      height: 220px;
       object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 15px;
     }
 
-    .product-title {
-      font-weight: 600;
-      font-size: 1.3rem;
-      margin-bottom: 10px;
-      color: var(--text-color);
+    .card h3 {
+      margin: 1rem 0 0.5rem;
     }
 
-    .product-price {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--accent-color);
-      margin-bottom: 15px;
+    .card p {
+      font-size: 0.9rem;
+      color: #555;
     }
 
-    .btn-group {
-      margin-top: auto;
+    .btns {
       display: flex;
-      gap: 10px;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1rem 0;
     }
 
-    button {
-      flex: 1;
-      padding: 12px 15px;
+    .btns button {
+      padding: 0.6rem 1.2rem;
       border: none;
-      border-radius: 8px;
-      font-size: 1rem;
+      border-radius: 6px;
       cursor: pointer;
-      color: #fff;
-      background-color: var(--btn-bg);
-      transition: background-color 0.3s ease;
-      user-select: none;
+      font-weight: bold;
+      transition: background 0.3s;
     }
 
-    button:hover {
-      background-color: var(--btn-hover);
+    .btns .buy {
+      background-color: #6d4c41;
+      color: white;
     }
 
-    /* Cart & payment modal */
-    #cartModal {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      background-color: var(--bg-color);
-      box-shadow: 0 12px 30px rgba(90,70,49,0.4);
-      border-radius: 15px;
-      width: 90%;
-      max-width: 400px;
-      padding: 20px;
-      z-index: 1500;
-      transition: transform 0.3s ease;
-    }
-    #cartModal.show {
-      transform: translate(-50%, -50%) scale(1);
-    }
-    #cartModal h2 {
-      margin-top: 0;
-      color: var(--text-color);
-    }
-    #cartModal ul {
-      list-style: none;
-      padding-left: 0;
-      max-height: 200px;
-      overflow-y: auto;
-      margin-bottom: 20px;
-      color: var(--text-color);
-    }
-    #cartModal ul li {
-      margin-bottom: 10px;
-    }
-    #cartModal button.close-btn {
-      background-color: var(--btn-hover);
-      width: 100%;
+    .btns .cart {
+      background-color: #a1887f;
+      color: white;
     }
 
-    /* Overlay for modal */
-    #overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background-color: rgba(0,0,0,0.4);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      z-index: 1400;
-    }
-    #overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    /* Cookie Consent Popup */
-    #cookieConsent {
+    .cookie-popup {
       position: fixed;
       bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: var(--header-bg);
-      color: var(--text-color);
-      box-shadow: 0 8px 18px rgba(0,0,0,0.2);
-      padding: 15px 25px;
-      border-radius: 30px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      font-size: 1rem;
-      z-index: 1600;
-      max-width: 90vw;
-      animation: slideUp 0.6s ease forwards;
-    }
-    #cookieConsent button {
-      background-color: var(--btn-bg);
-      color: #fff;
-      border: none;
-      padding: 8px 15px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
-    }
-    #cookieConsent button:hover {
-      background-color: var(--btn-hover);
-    }
-    #cookieConsent.hide {
+      left: 20px;
+      background-color: #fff8f1;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      z-index: 9999;
       display: none;
+      max-width: 300px;
     }
 
-    @keyframes slideUp {
-      from {transform: translateX(-50%) translateY(100%);}
-      to {transform: translateX(-50%) translateY(0);}
+    .cookie-popup button {
+      margin-top: 10px;
+      margin-right: 10px;
+      padding: 5px 12px;
+      border: none;
+      background-color: #6d4c41;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
     }
-
-    /* Responsive */
-    @media (max-width: 600px) {
-      .product-grid {
-        grid-template-columns: 1fr;
-      }
-      nav {
-        width: 200px;
-      }
-    }
-
   </style>
 </head>
 <body>
-
-  <!-- Hamburger menu -->
-  <div class="hamburger" id="hamburger" aria-label="Toggle navigation menu" role="button" tabindex="0">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-
-  <!-- Sidebar navigation -->
-  <nav id="navMenu" aria-hidden="true">
-    <a href="index.html">Portfolio</a>
-    <a href="shop.html">Shop</a>
-  </nav>
-
   <header>
     <h1>Mariyam's Shop</h1>
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <nav class="menu" id="menu">
+      <a href="index.html">Portfolio</a>
+      <a href="#">Products</a>
+      <a href="#">Contact</a>
+    </nav>
   </header>
 
-  <main>
-    <section class="product-grid" aria-label="Product listing">
-
-      <article class="product-card" data-id="1" data-title="Smartphone" data-price="29999">
-        <img class="product-image" src="https://via.placeholder.com/300x180?text=Smartphone" alt="Smartphone" />
-        <h2 class="product-title">Smartphone</h2>
-        <p class="product-price">₹29,999</p>
-        <div class="btn-group">
-          <button class="add-to-cart-btn">Add to Cart</button>
-          <button class="buy-now-btn">Buy Now</button>
-        </div>
-      </article>
-
-      <article class="product-card" data-id="2" data-title="Wireless Headphones" data-price="7999">
-        <img class="product-image" src="https://via.placeholder.com/300x180?text=Headphones" alt="Wireless Headphones" />
-        <h2 class="product-title">Wireless Headphones</h2>
-        <p class="product-price">₹7,999</p>
-        <div class="btn-group">
-          <button class="add-to-cart-btn">Add to Cart</button>
-          <button class="buy-now-btn">Buy Now</button>
-        </div>
-      </article>
-
-      <article class="product-card" data-id="3" data-title="Smartwatch" data-price="11999">
-        <img class="product-image" src="https://via.placeholder.com/300x180?text=Smartwatch" alt="Smartwatch" />
-        <h2 class="product-title">Smartwatch</h2>
-        <p class="product-price">₹11,999</p>
-        <div class="btn-group">
-          <button class="add-to-cart-btn">Add to Cart</button>
-          <button class="buy-now-btn">Buy Now</button>
-        </div>
-      </article>
-
-      <article class="product-card" data-id="4" data-title="Bluetooth Speaker" data-price="4999">
-        <img class="product-image" src="https://via.placeholder.com/300x180?text=Speaker" alt="Bluetooth Speaker" />
-        <h2 class="product-title">Bluetooth Speaker</h2>
-        <p class="product-price">₹4,999</p>
-        <div class="btn-group">
-          <button class="add-to-cart-btn">Add to Cart</button>
-          <button class="buy-now-btn">Buy Now</button>
-        </div>
-      </article>
-
-      <article class="product-card" data-id="5" data-title="Laptop Stand" data-price="2499">
-        <img class="product-image" src="https://via.placeholder.com/300x180?text=Laptop+Stand" alt="Laptop Stand" />
-        <h2 class="product-title">Laptop Stand</h2>
-        <p class="product-price">₹2,499</p>
-        <div class="btn-group">
-          <button class="add-to-cart-btn">Add to Cart</button>
-          <button class="buy-now-btn">Buy Now</button>
-        </div>
-      </article>
-
-      <article class="product-card" data-id="6" data-title="USB-C Hub" data-price="1499">
-        <img class="product-image" src="https://via.placeholder.com/300x180?text=USB-C+Hub" alt="USB-C Hub" />
-        <h2 class="product-title">USB-C Hub</h2>
-        <p class="product-price">₹1,499</p>
-        <div class="btn-group">
-          <button class="add-to-cart-btn">Add to Cart</button>
-          <button class="buy-now-btn">Buy Now</button>
-        </div>
-      </article>
-
-    </section>
+  <main class="products">
+    <div class="card">
+      <img src="https://source.unsplash.com/featured/?dress" alt="Product 1">
+      <h3>Elegant Dress</h3>
+      <p>₹1499 - Summer Collection</p>
+      <div class="btns">
+        <button class="buy">Buy Now</button>
+        <button class="cart">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://source.unsplash.com/featured/?kurti" alt="Product 2">
+      <h3>Designer Kurti</h3>
+      <p>₹899 - Ethnic Style</p>
+      <div class="btns">
+        <button class="buy">Buy Now</button>
+        <button class="cart">Add to Cart</button>
+      </div>
+    </div>
+    <!-- Add 4 more products similarly -->
   </main>
 
-  <!-- Cart Modal -->
-  <div id="cartModal" role="dialog" aria-modal="true" aria-labelledby="cartTitle" tabindex="-1">
-    <h2 id="cartTitle">Your Cart</h2>
-    <ul id="cartItems"></ul>
-    <button class="close-btn" id="closeCartBtn">Close</button>
-  </div>
-
-  <!-- Overlay -->
-  <div id="overlay"></div>
-
-  <!-- Cookie Consent Popup -->
-  <div id="cookieConsent" role="alert" aria-live="assertive">
-    <span>This website uses cookies to enhance your experience.</span>
-    <button id="acceptCookies">Accept</button>
-    <button id="rejectCookies">Reject</button>
+  <div class="cookie-popup" id="cookiePopup">
+    <p>This site uses cookies to enhance your shopping experience. Do you accept?</p>
+    <button onclick="acceptCookies()">Accept</button>
+    <button onclick="rejectCookies()">Reject</button>
   </div>
 
   <script>
-    // Hamburger toggle
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      navMenu.classList.toggle('open');
-      navMenu.setAttribute('aria-hidden', navMenu.classList.contains('open') ? 'false' : 'true');
-    });
-
-    // Cart modal controls
-    const cartModal = document.getElementById('cartModal');
-    const overlay = document.getElementById('overlay');
-    const closeCartBtn = document.getElementById('closeCartBtn');
-    const cartItemsList = document.getElementById('cartItems');
-
-    let cart = [];
-
-    function openCart() {
-      renderCart();
-      cartModal.classList.add('show');
-      overlay.classList.add('active');
-      cartModal.focus();
+    function toggleMenu() {
+      document.getElementById('menu').classList.toggle('active');
     }
 
-    function closeCart() {
-      cartModal.classList.remove('show');
-      overlay.classList.remove('active');
-    }
-
-    closeCartBtn.addEventListener('click', closeCart);
-    overlay.addEventListener('click', closeCart);
-
-    function renderCart() {
-      cartItemsList.innerHTML = '';
-      if (cart.length === 0) {
-        cartItemsList.innerHTML = '<li>Your cart is empty.</li>';
-        return;
+    window.addEventListener("load", () => {
+      const popup = document.getElementById("cookiePopup");
+      if (!localStorage.getItem("cookieConsent")) {
+        popup.style.display = "block";
       }
-      cart.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = `${item.title} - ₹${item.price}`;
-        cartItemsList.appendChild(li);
-      });
-    }
-
-    // Add to Cart & Buy Now button handlers
-    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
-    const buyNowButtons = document.querySelectorAll('.buy-now-btn');
-
-    addToCartButtons.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const card = e.target.closest('.product-card');
-        const product = {
-          id: card.dataset.id,
-          title: card.dataset.title,
-          price: parseInt(card.dataset.price),
-        };
-        cart.push(product);
-        alert(`${product.title} added to cart!`);
-      });
     });
 
-    buyNowButtons.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const card = e.target.closest('.product-card');
-        const product = {
-          id: card.dataset.id,
-          title: card.dataset.title,
-          price: parseInt(card.dataset.price),
-        };
-        cart = [product]; // Replace cart with just the bought item
-        openCart();
-      });
-    });
-
-    // Cookie consent logic
-    const cookieConsent = document.getElementById('cookieConsent');
-    const acceptCookies = document.getElementById('acceptCookies');
-    const rejectCookies = document.getElementById('rejectCookies');
-
-    function setCookie(name, value, days) {
-      const d = new Date();
-      d.setTime(d.getTime() + days*24*60*60*1000);
-      document.cookie = name + "=" + value + ";expires=" + d.toUTCString() + ";path=/";
+    function acceptCookies() {
+      localStorage.setItem("cookieConsent", "true");
+      document.getElementById("cookiePopup").style.display = "none";
     }
 
-    function getCookie(name) {
-      const value = "; " + document.cookie;
-      const parts = value.split("; " + name + "=");
-      if (parts.length === 2) return parts.pop().split(";").shift();
+    function rejectCookies() {
+      localStorage.setItem("cookieConsent", "false");
+      document.getElementById("cookiePopup").style.display = "none";
     }
-
-    function checkCookieConsent() {
-      const consent = getCookie('cookieConsent');
-      if (!consent) {
-        cookieConsent.classList.remove('hide');
-      } else {
-        cookieConsent.classList.add('hide');
-      }
-    }
-
-    acceptCookies.addEventListener('click', () => {
-      setCookie('cookieConsent', 'accepted', 365);
-      cookieConsent.classList.add('hide');
-    });
-
-    rejectCookies.addEventListener('click', () => {
-      setCookie('cookieConsent', 'rejected', 365);
-      cookieConsent.classList.add('hide');
-    });
-
-    checkCookieConsent();
   </script>
-
 </body>
 </html>
