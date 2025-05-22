@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Checkout</title>
+  <style>
+    body {
+      margin: 0; font-family: 'Poppins', sans-serif;
+      background: #fff8f0;
+      color: #3a3a3a;
+      padding: 2rem 1rem;
+      max-width: 450px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    h2 {
+      color: #b98ca7;
+      text-align: center;
+      user-select: none;
+    }
+    .order-details {
+      background: #f2e9e4;
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      user-select: none;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.6rem;
+      font-weight: 600;
+    }
+    select, button {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #b98ca7;
+      margin-bottom: 1.5rem;
+      font-family: 'Poppins', sans-serif;
+      user-select: none;
+    }
+    button {
+      background-color: #b98ca7;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #a17797;
+    }
+  </style>
+</head>
+<body>
+  <h2>Checkout</h2>
+  <div class="order-details" id="orderDetails">
+    Loading order details...
+  </div>
+  <label for="paymentMethod">Select Payment Method:</label>
+  <select id="paymentMethod">
+    <option value="card">Credit/Debit Card</option>
+    <option value="upi">UPI</option>
+    <option value="netbanking">Net Banking</option>
+    <option value="cod">Cash on Delivery</option>
+  </select>
+  <button onclick="confirmOrder()">Confirm Purchase</button>
+
+  <script>
+    const products = {
+      1: {name:"Pink Chiffon Dress", price:4500},
+      2: {name:"Lavender Scarf", price:1500},
+      3: {name:"Mint Green Shawl", price:2000},
+      4: {name:"Yellow Chiffon Blouse", price:3200},
+      5: {name:"Cream Chiffon Skirt", price:2800},
+      6: {name:"Peach Chiffon Top", price:3500}
+    };
+
+    function loadOrder() {
+      const productId = localStorage.getItem('buyNowProduct');
+      if (!productId || !products[productId]) {
+        document.getElementById('orderDetails').innerText = 'No product selected for purchase.';
+        return;
+      }
+      const p = products[productId];
+      document.getElementById('orderDetails').innerHTML = `
+        <p><strong>Product:</strong> ${p.name}</p>
+        <p><strong>Price:</strong> ₹${p.price.toLocaleString()}</p>
+      `;
+    }
+
+    function confirmOrder() {
+      const paymentMethod = document.getElementById('paymentMethod').value;
+      alert(`Thank you for your purchase! Payment method: ${paymentMethod}`);
+      localStorage.removeItem('buyNowProduct');
+      window.location.href = 'index.html';
+    }
+
+    window.onload = loadOrder;
+  </script>
+</body>
+</html>
