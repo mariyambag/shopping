@@ -2,260 +2,210 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mariyam's Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Chiffon Portfolio</title>
   <style>
+    /* Chiffon pastel palette */
     body {
       margin: 0;
-      font-family: 'Raleway', sans-serif;
-      background-color: #fffaf3;
-      color: #3c2f2f;
-      line-height: 1.8;
-      scroll-behavior: smooth;
+      font-family: 'Poppins', sans-serif;
+      background: #fff8f0;
+      color: #3a3a3a;
+      overflow-x: hidden;
     }
-
-    .header {
-      background-color: #e5cfc1;
-      color: #3c2f2f;
-      padding: 48px 16px;
-      text-align: center;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    header {
+      background: #f2e9e4;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 1000;
     }
-
-    .header h1 {
-      font-size: 3.2rem;
-      margin: 0;
+    .logo {
       font-weight: 700;
+      font-size: 1.5rem;
+      color: #b98ca7;
+      cursor: pointer;
+      user-select: none;
     }
-
-    .subtitle {
-      font-style: italic;
-      margin-top: 12px;
-      font-size: 1.2rem;
-    }
-
-    .container {
-      display: flex;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .left-image {
-      flex: 1;
+    nav {
       display: flex;
       align-items: center;
-      justify-content: center;
-      position: sticky;
-      top: 100px;
-      height: 100vh;
     }
-
-    .left-image img {
-      width: 260px;
-      height: 260px;
-      border-radius: 50%;
-      border: 6px solid #b2967d;
+    nav a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      color: #886a7e;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #b98ca7;
+    }
+    /* Hamburger */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      margin-left: 1rem;
+    }
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: #886a7e;
+      margin: 4px 0;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .nav-links {
+      display: flex;
+    }
+    /* Responsive nav */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: flex;
+      }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background: #f2e9e4;
+        padding: 1rem 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      nav a {
+        margin: 0.5rem 0;
+      }
+    }
+    /* Left fixed photo */
+    .photo-container {
+      position: fixed;
+      top: 80px;
+      left: 20px;
+      width: 150px;
+      height: 200px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(185,140,167,0.4);
+      transition: transform 0.3s ease;
+      z-index: 999;
+    }
+    .photo-container img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      animation: float 4s ease-in-out infinite;
+      display: block;
+      filter: drop-shadow(0 2px 2px rgba(185,140,167,0.7));
+      border-radius: 15px;
     }
-
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0px);
-      }
-      50% {
-        transform: translateY(-12px);
-      }
+    /* Main content */
+    main {
+      margin-left: 200px;
+      padding: 2rem 3rem;
+      max-width: 700px;
     }
-
-    .content {
-      flex: 2;
-      padding: 40px 20px;
-    }
-
-    .section {
-      margin-bottom: 64px;
-      padding: 16px;
-      background-color: #f9f4ef;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    }
-
-    h2 {
-      font-size: 2.2rem;
-      margin-bottom: 20px;
-    }
-
-    h3 {
-      font-size: 1.6rem;
-      margin-bottom: 18px;
-    }
-
-    ul {
-      list-style-type: square;
-      padding-left: 20px;
-      text-align: left;
-    }
-
-    .footer {
-      background-color: #e5cfc1;
-      color: #3c2f2f;
-      text-align: center;
-      padding: 20px;
-      font-size: 1rem;
-    }
-
-    .fade-in {
+    section {
+      margin-bottom: 3rem;
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
-
-    .fade-in.visible {
+    section.visible {
       opacity: 1;
       transform: translateY(0);
     }
-
-    .hamburger {
-      display: none;
-      position: absolute;
-      right: 20px;
-      top: 20px;
-      cursor: pointer;
+    h2 {
+      font-size: 2rem;
+      color: #b98ca7;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #886a7e;
+      padding-bottom: 0.2rem;
+      user-select: none;
     }
-
-    .hamburger span {
-      display: block;
-      width: 25px;
-      height: 3px;
-      background: #3c2f2f;
-      margin: 5px 0;
-      transition: 0.4s;
-      border-radius: 3px;
+    p {
+      line-height: 1.6;
+      font-size: 1.1rem;
+      color: #5a4d55;
     }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      margin-top: 10px;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #3c2f2f;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-      }
-
-      .left-image {
-        position: relative;
-        height: auto;
-        margin-top: 20px;
-      }
-
-      .hamburger {
-        display: block;
-      }
-
-      nav {
-        display: none;
-        flex-direction: column;
-        background: #f4e9d8;
-        padding: 20px;
-        margin-top: 10px;
-        border-radius: 10px;
-      }
-
-      nav.show {
-        display: flex;
-      }
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1rem;
+      color: #886a7e;
+      user-select: none;
+      border-top: 1px solid #b98ca7;
+      margin-top: 4rem;
     }
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="hamburger" onclick="toggleMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-    <h1>Mariyam's Portfolio</h1>
-    <p class="subtitle">A Tech Enthusiast with Big Dreams</p>
-    <nav id="menu">
-      <a href="#about">About</a>
-      <a href="#achievements">Achievements</a>
-      <a href="#contact">Contact</a>
-      <a href="shop.html">Shop</a>
+  <header>
+    <div class="logo">Mariyam</div>
+    <nav>
+      <div class="menu-toggle" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="nav-links" id="navLinks">
+        <a href="#about">About Me</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="shop.html">Shop</a>
+      </div>
     </nav>
   </header>
 
-  <div class="container">
-    <div class="left-image">
-      <img src="img.jpg" alt="Mariyam's Profile Photo">
-    </div>
-    <div class="content">
-      <section class="section fade-in" id="about">
-        <h2>About Me</h2>
-        <p><strong>Name:</strong> Mariyam </p>
-        <p><strong>Education:</strong> B.Tech in Electronics and Computer Science Engineering</p>
-        <p><strong>Languages:</strong> English, Hindi, Marathi</p>
-      </section>
-
-      <section class="section fade-in" id="achievements">
-        <h3>Achievements</h3>
-        <ul>
-          <li>Interned at XYZ Tech in 2024</li>
-          <li>Built a ₹3000 drone with a team of 10</li>
-          <li>Completed multiple web projects using React and TailwindCSS</li>
-          <li>Published a tech blog on GitHub Pages</li>
-          <li>Won 1st place in college hackathon 2023</li>
-        </ul>
-      </section>
-
-      <section class="section fade-in" id="contact">
-        <h3>Contact Me</h3>
-        <p><a href="tel:917385660481">📞 Call Me</a></p>
-        <p><a href="mailto:mariyambag08@gmail.com">✉️ Email</a></p>
-        <p><a href="https://wa.me/917385660481?text=Hi%2C%20I%20saw%20your%20portfolio%21" target="_blank">💬 Chat on WhatsApp</a></p>
-        <p><a href="https://github.com/mariyambag" target="_blank">💻 GitHub</a> | <a href="https://www.linkedin.com/in/mariyam-bag-25b881321" target="_blank">🔗 LinkedIn</a></p>
-      </section>
-    </div>
+  <div class="photo-container" id="photo">
+    <img src="https://i.pravatar.cc/300?img=47" alt="Mariyam's Photo" />
   </div>
 
-  <footer class="footer">
-    <p>&copy; 2025 Mariyam | Built with 💖 and HTML5</p>
-  </footer>
+  <main>
+    <section id="about">
+      <h2>About Me</h2>
+      <p>Hello! I'm Mariyam, a passionate web developer and designer with a love for chiffon palettes and clean aesthetics. I enjoy creating beautiful, responsive websites that provide great user experience.</p>
+    </section>
 
-  <script>
-    const faders = document.querySelectorAll('.fade-in');
-    const appearOnScroll = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.2 });
+    <section id="skills">
+      <h2>Skills</h2>
+      <p>HTML, CSS, JavaScript, React, TailwindCSS, UI/UX Design, Responsive Web Design, GitHub Pages.</p>
+    </section>
 
-    faders.forEach(el => appearOnScroll.observe(el));
+    <section id="projects">
+      <h2>Projects</h2>
+      <p>I have built several personal and client projects including portfolio sites, e-commerce shops, and interactive web applications.</p>
+    </section>
+  </main>
 
-    function toggleMenu() {
-      const menu = document.getElementById('menu');
-      menu.classList.toggle('show');
-    }
-  </script>
+  <footer>&copy; 2025 Mariyam's Portfolio</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('active');
+  }
+
+  // Scroll animations for sections
+  const sections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  sections.forEach(section => {
+    observer.observe(section);
+  });
+
+  // Photo stays fixed left; no disappearing on scroll (already fixed)
+
+</script>
 </body>
 </html>
