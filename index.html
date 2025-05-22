@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mariyam's Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* Chiffon palette colors */
+    :root {
+      --bg-color: #fff8dc;       /* Light Chiffon background */
+      --header-bg: #ffefd5;      /* Papaya Whip */
+      --text-color: #5a4631;     /* Dark Brown */
+      --accent-color: #eecbad;   /* Medium Chiffon */
+      --hover-color: #d8bfa8;    /* Slightly darker accent */
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Cute Hamburger styles */
+    .hamburger {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 30px;
+      height: 22px;
+      cursor: pointer;
+      z-index: 1001;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hamburger span {
+      display: block;
+      height: 4px;
+      border-radius: 3px;
+      background-color: var(--text-color);
+      transition: all 0.3s ease;
+    }
+
+    /* Animate hamburger to X when active */
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+    }
+
+    /* Sidebar nav */
+    nav {
+      position: fixed;
+      top: 0;
+      right: -250px;
+      width: 220px;
+      height: 100vh;
+      background-color: var(--header-bg);
+      box-shadow: -2px 0 8px rgba(0,0,0,0.15);
+      padding-top: 80px;
+      transition: right 0.3s ease;
+      z-index: 1000;
+    }
+
+    nav.open {
+      right: 0;
+    }
+
+    nav a {
+      display: block;
+      padding: 15px 25px;
+      color: var(--text-color);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1.1rem;
+      border-bottom: 1px solid var(--accent-color);
+      transition: background-color 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: var(--hover-color);
+    }
+
+    /* Header */
+    header {
+      background-color: var(--header-bg);
+      text-align: center;
+      padding: 60px 20px 80px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--text-color);
+    }
+
+    header p.subtitle {
+      margin-top: 8px;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--text-color);
+      opacity: 0.8;
+    }
+
+    /* Main container for sticky photo and content */
+    .main-content {
+      display: flex;
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 0 20px;
+      gap: 40px;
+    }
+
+    /* Sticky photo container */
+    .photo-container {
+      flex-shrink: 0;
+      position: sticky;
+      top: 80px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 12px 25px rgba(90,70,49,0.3);
+      border: 5px solid var(--accent-color);
+      transition: box-shadow 0.4s ease;
+    }
+
+    .photo-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-container:hover {
+      box-shadow: 0 20px 40px rgba(90,70,49,0.5);
+    }
+
+    /* Content section */
+    .content-section {
+      flex: 1;
+    }
+
+    .content-section h2, .content-section h3 {
+      color: var(--text-color);
+      margin-bottom: 15px;
+    }
+
+    .content-section p {
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+      color: var(--text-color);
+      opacity: 0.9;
+    }
+
+    ul {
+      list-style: inside circle;
+      padding-left: 0;
+      color: var(--text-color);
+      max-width: 500px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px 10px;
+      background-color: var(--header-bg);
+      color: var(--text-color);
+      font-size: 1rem;
+      font-weight: 600;
+      box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+      margin-top: 80px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .main-content {
+        flex-direction: column;
+        align-items: center;
+      }
+      .photo-container {
+        position: relative;
+        top: auto;
+        margin-bottom: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hamburger menu -->
+  <div class="hamburger" id="hamburger" aria-label="Toggle navigation menu" role="button" tabindex="0">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Sidebar navigation -->
+  <nav id="navMenu" aria-hidden="true">
+    <a href="index.html">Portfolio</a>
+    <a href="shop.html">Shop</a>
+  </nav>
+
+  <header>
+    <h1>Mariyam's Portfolio</h1>
+    <p class="subtitle">A Tech Enthusiast with Big Dreams</p>
+  </header>
+
+  <main class="main-content" role="main">
+    <div class="photo-container">
+      <img src="img.jpg" alt="Mariyam's Profile Photo" />
+    </div>
+    <section class="content-section">
+      <h2>Hello! I'm Mariyam</h2>
+      <p>Welcome to my personal space on the internet!</p>
+
+      <h3>About Me</h3>
+      <p><strong>Name:</strong> Mariyam</p>
+      <p><strong>Education:</strong> B.Tech in Electronics and Computer Science Engineering</p>
+      <p><strong>Languages:</strong> English, Hindi, Marathi</p>
+
+      <h3>Achievements</h3>
+      <ul id="achievementList">
+        <li>Loading achievements...</li>
+      </ul>
+
+      <h3>Contact Me</h3>
+      <p><a href="tel:917385660481">📞 Call Me</a></p>
+      <p><a href="mailto:mariyambag08@gmail.com">✉️ Email</a></p>
+      <p><a href="https://wa.me/917385660481?text=Hi%2C%20I%20saw%20your%20portfolio%21" target="_blank" rel="noopener noreferrer">💬 Chat on WhatsApp</a></p>
+      <p>
+        <a href="https://github.com/mariyambag" target="_blank" rel="noopener noreferrer">💻 GitHub</a> |
+        <a href="https://www.linkedin.com/in/mariyam-bag-25b881321" target="_blank" rel="noopener noreferrer">🔗 LinkedIn</a>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Mariyam | Built with ❤️ and HTML5</p>
+  </footer>
+
+  <script>
+    // Hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('open');
+      navMenu.setAttribute('aria-hidden', navMenu.classList.contains('open') ? 'false' : 'true');
+    });
+
+    // Load achievements from JSON file (optional, you can create data.json or remove this)
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch('data.json')
+        .then(res => res.json())
+        .then(data => {
+          const list = document.getElementById("achievementList");
+          list.innerHTML = "";
+          data.forEach(item => {
+            const li = document.createElement("li");
+            li.textContent = `${item.title} (${item.year})`;
+            list.appendChild(li);
+          });
+        }).catch(() => {
+          // fallback content if JSON missing
+          document.getElementById("achievementList").innerHTML = "<li>Achievement data not found.</li>";
+        });
+    });
+  </script>
+</body>
+</html>
