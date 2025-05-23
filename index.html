@@ -6,13 +6,13 @@
   <title>Mariyam's Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
   <style>
-    /* Chiffon palette colors */
+    /* Chiffon theme palette */
     :root {
-      --bg-color: #fff8dc;       /* Light Chiffon background */
-      --header-bg: #ffefd5;      /* Papaya Whip */
-      --text-color: #5a4631;     /* Dark Brown */
-      --accent-color: #eecbad;   /* Medium Chiffon */
-      --hover-color: #d8bfa8;    /* Slightly darker accent */
+      --bg-color: #fff8dc;
+      --header-bg: #ffefd5;
+      --text-color: #5a4631;
+      --accent-color: #eecbad;
+      --hover-color: #d8bfa8;
     }
 
     body {
@@ -22,9 +22,10 @@
       color: var(--text-color);
       line-height: 1.6;
       overflow-x: hidden;
+      scroll-behavior: smooth;
     }
 
-    /* Cute Hamburger styles */
+    /* Hamburger */
     .hamburger {
       position: fixed;
       top: 20px;
@@ -39,25 +40,24 @@
     }
 
     .hamburger span {
-      display: block;
       height: 4px;
       border-radius: 3px;
       background-color: var(--text-color);
       transition: all 0.3s ease;
     }
 
-    /* Animate hamburger to X when active */
     .hamburger.active span:nth-child(1) {
       transform: translateY(9px) rotate(45deg);
     }
+
     .hamburger.active span:nth-child(2) {
       opacity: 0;
     }
+
     .hamburger.active span:nth-child(3) {
       transform: translateY(-9px) rotate(-45deg);
     }
 
-    /* Sidebar nav */
     nav {
       position: fixed;
       top: 0;
@@ -90,7 +90,6 @@
       background-color: var(--hover-color);
     }
 
-    /* Header */
     header {
       background-color: var(--header-bg);
       text-align: center;
@@ -98,34 +97,34 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
       position: relative;
       z-index: 1;
+      animation: fadeIn 1.2s ease-out;
     }
 
     header h1 {
       margin: 0;
-      font-size: 3rem;
+      font-size: 3.2rem;
       font-weight: 700;
       letter-spacing: 2px;
       color: var(--text-color);
     }
 
     header p.subtitle {
-      margin-top: 8px;
+      margin-top: 10px;
       font-style: italic;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       color: var(--text-color);
-      opacity: 0.8;
+      opacity: 0.85;
     }
 
-    /* Main container for sticky photo and content */
     .main-content {
       display: flex;
       max-width: 960px;
       margin: 40px auto;
       padding: 0 20px;
       gap: 40px;
+      animation: slideUp 1s ease-out;
     }
 
-    /* Sticky photo container */
     .photo-container {
       flex-shrink: 0;
       position: sticky;
@@ -150,14 +149,10 @@
       box-shadow: 0 20px 40px rgba(90,70,49,0.5);
     }
 
-    /* Content section */
-    .content-section {
-      flex: 1;
-    }
-
     .content-section h2, .content-section h3 {
       color: var(--text-color);
       margin-bottom: 15px;
+      font-size: 1.8rem;
     }
 
     .content-section p {
@@ -172,6 +167,7 @@
       padding-left: 0;
       color: var(--text-color);
       max-width: 500px;
+      animation: floatY 4s ease-in-out infinite alternate;
     }
 
     footer {
@@ -185,7 +181,22 @@
       margin-top: 80px;
     }
 
-    /* Responsive */
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatY {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-10px); }
+    }
+
     @media (max-width: 768px) {
       .main-content {
         flex-direction: column;
@@ -201,7 +212,7 @@
 </head>
 <body>
 
-  <!-- Hamburger menu -->
+  <!-- Hamburger -->
   <div class="hamburger" id="hamburger" aria-label="Toggle navigation menu" role="button" tabindex="0">
     <span></span>
     <span></span>
@@ -234,7 +245,10 @@
 
       <h3>Achievements</h3>
       <ul id="achievementList">
-        <li>Loading achievements...</li>
+        <li>Winner - English Olympiad</li>
+        <li>Drone project under ₹3000 completed with team</li>
+        <li>Secured Internship at IT Company</li>
+        <li>Built a chiffon-themed shopping site with cart + payment</li>
       </ul>
 
       <h3>Contact Me</h3>
@@ -253,7 +267,6 @@
   </footer>
 
   <script>
-    // Hamburger toggle
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('navMenu');
 
@@ -261,24 +274,6 @@
       hamburger.classList.toggle('active');
       navMenu.classList.toggle('open');
       navMenu.setAttribute('aria-hidden', navMenu.classList.contains('open') ? 'false' : 'true');
-    });
-
-    // Load achievements from JSON file (optional, you can create data.json or remove this)
-    document.addEventListener("DOMContentLoaded", () => {
-      fetch('data.json')
-        .then(res => res.json())
-        .then(data => {
-          const list = document.getElementById("achievementList");
-          list.innerHTML = "";
-          data.forEach(item => {
-            const li = document.createElement("li");
-            li.textContent = `${item.title} (${item.year})`;
-            list.appendChild(li);
-          });
-        }).catch(() => {
-          // fallback content if JSON missing
-          document.getElementById("achievementList").innerHTML = "<li>Achievement data not found.</li>";
-        });
     });
   </script>
 </body>
