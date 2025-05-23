@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chiffon Shop</title>
+  <title>Chiffon Shop - Products</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -25,6 +25,7 @@
   </script>
 </head>
 <body class="bg-chiffonLight text-chiffonText transition-colors duration-300 dark:bg-darkBg dark:text-white">
+
   <header class="bg-[#f2e9e4] dark:bg-darkHeader sticky top-0 z-50 px-4 py-3 flex justify-between items-center shadow">
     <h1 class="text-chiffonAccent font-bold text-xl">Chiffon Shop</h1>
     <div class="flex items-center space-x-4">
@@ -32,23 +33,13 @@
       <nav id="navLinks" class="hidden md:flex space-x-6 bg-[#f2e9e4] dark:bg-darkHeader md:bg-transparent md:dark:bg-transparent absolute md:relative top-16 md:top-0 right-4 md:right-0 flex-col md:flex-row rounded-lg p-4 md:p-0 shadow md:shadow-none">
         <a href="index.html" class="hover:text-chiffonAccent">Portfolio</a>
         <a href="shop.html" class="hover:text-chiffonAccent">Shop</a>
-        <a href="product.html" class="hover:text-chiffonAccent">Products</a>
+        <a href="product.html" class="hover:text-chiffonAccent font-semibold underline">Products</a>
         <button onclick="toggleMode()" id="toggleIcon" class="ml-2 text-xl">
           🌙
         </button>
       </nav>
     </div>
   </header>
-
-  <main class="max-w-3xl mx-auto text-center px-4 py-16">
-    <h2 class="text-chiffonAccent text-3xl font-semibold mb-4">Welcome to Mariyam's Chiffon Shop!</h2>
-    <p class="text-lg mb-6">
-      Browse our beautiful chiffon collection of dresses, scarves, and accessories.
-    </p>
-    <a href="product.html" class="bg-chiffonAccent text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#d6abc2] transition">
-      Let’s Shop
-    </a>
-  </main>
 
   <!-- Cookie Modal Popup -->
   <div id="cookieBackdrop" class="fixed inset-0 bg-black bg-opacity-40 z-40 hidden"></div>
@@ -63,8 +54,61 @@
     </div>
   </div>
 
+  <main class="max-w-6xl mx-auto px-4 py-8 space-y-12">
+
+    <!-- Welcome Message -->
+    <section class="text-center mb-12">
+      <h2 class="text-chiffonAccent text-3xl font-semibold mb-2">Welcome to Mariyam's Chiffon Shop!</h2>
+      <p class="text-lg text-chiffonText dark:text-white">
+        Browse our beautiful chiffon collection of dresses, scarves, and accessories.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-chiffonAccent text-3xl font-semibold mb-6 text-center">Our Products</h2>
+      <div id="productList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        <!-- Products inserted via JS -->
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-chiffonAccent text-3xl font-semibold mb-6 text-center">Your Cart</h2>
+      <ul id="cartItems" class="list-disc list-inside space-y-2 text-lg min-h-[6rem]">
+        <!-- Cart items -->
+      </ul>
+      <p id="totalPrice" class="text-xl font-bold mt-4 text-center">Total: Rs.0/-</p>
+    </section>
+
+    <section>
+      <h2 class="text-chiffonAccent text-3xl font-semibold mb-6 text-center">Checkout & Payment</h2>
+      <form id="paymentForm" class="max-w-md mx-auto space-y-6 bg-[#f7e9f0] dark:bg-[#4b3c49] rounded-lg p-6 shadow-lg">
+        <div>
+          <label for="paymentMethod" class="block font-semibold mb-2">Select Payment Method:</label>
+          <select id="paymentMethod" name="paymentMethod" class="w-full rounded border border-chiffonAccent px-3 py-2 text-chiffonText dark:text-white dark:bg-darkBg" required>
+            <option value="" disabled selected>Select an option</option>
+            <option value="upi">UPI</option>
+            <option value="cod">Cash on Delivery (COD)</option>
+          </select>
+        </div>
+
+        <div id="upiInputContainer" class="hidden">
+          <label for="upiId" class="block font-semibold mb-2">Enter your UPI ID:</label>
+          <input type="text" id="upiId" name="upiId" placeholder="example@upi" class="w-full rounded border border-chiffonAccent px-3 py-2 text-chiffonText dark:text-white dark:bg-darkBg" />
+        </div>
+
+        <button type="submit" class="w-full bg-chiffonAccent text-white py-2 rounded font-semibold hover:bg-[#a77c96] transition">Place Order</button>
+      </form>
+
+      <p id="orderMessage" class="mt-4 text-center font-semibold"></p>
+    </section>
+  </main>
+
+  <footer class="bg-[#f2e9e4] dark:bg-darkHeader text-center py-4 mt-12 text-chiffonAccent">
+    &copy; 2025 Mariyam's Boutique
+  </footer>
+
   <script>
-    // Toggle Dark Mode
+    // Dark Mode Toggle
     function toggleMode() {
       const html = document.documentElement;
       const icon = document.getElementById("toggleIcon");
@@ -99,7 +143,110 @@
         document.getElementById('cookiePopup').classList.remove('hidden');
         document.getElementById('cookieBackdrop').classList.remove('hidden');
       }
+
+      // Also render products and cart on load
+      renderProducts();
+      renderCart();
+    };
+
+    // Product data
+    const products = [
+      { name: "Floral Summer Dress", price: 299, img: "floral summer dress.jpeg" },
+      { name: "Pastel Hoodie", price: 599, img: "hoodie.jpeg" },
+      { name: "Classic Denim Jacket", price: 899, img: "denim jacket.jpeg" },
+      { name: "Boho Printed Skirt", price: 399, img: "skirt.jpeg" },
+      { name: "Soft Knit Sweater", price: 399, img: "sweater.jpeg" },
+      { name: "Silk Scarf", price: 199, img: "scarf.jpeg" }
+    ];
+
+    const cart = [];
+
+    // Render product cards
+    function renderProducts() {
+      const container = document.getElementById("productList");
+      container.innerHTML = "";
+      products.forEach((product, index) => {
+        container.innerHTML += `
+          <div class="bg-white dark:bg-[#2f2630] rounded-lg shadow p-4 flex flex-col items-center space-y-4 transition-transform transform hover:scale-105">
+            <img src="${product.img}" alt="${product.name}" class="w-full h-48 object-cover rounded-md" />
+            <h3 class="text-lg font-semibold text-chiffonAccent">${product.name}</h3>
+            <p class="font-bold text-chiffonText dark:text-white">Rs.${product.price}/-</p>
+            <button onclick="addToCart(${index})" class="bg-chiffonAccent hover:bg-[#a77c96] text-white px-4 py-2 rounded font-semibold transition">Add to Cart</button>
+          </div>
+        `;
+      });
     }
+
+    // Add product to cart
+    function addToCart(index) {
+      cart.push(products[index]);
+      alert(`${products[index].name} added to cart!`);
+      renderCart();
+    }
+
+    // Render cart items and total
+    function renderCart() {
+      const cartItems = document.getElementById("cartItems");
+      const totalPrice = document.getElementById("totalPrice");
+      if (cart.length === 0) {
+        cartItems.innerHTML = "<li>Your cart is empty.</li>";
+        totalPrice.textContent = "Total: Rs.0/-";
+        return;
+      }
+      cartItems.innerHTML = cart.map(item => `<li>${item.name} - Rs.${item.price}/-</li>`).join('');
+      const total = cart.reduce((acc, item) => acc + item.price, 0);
+      totalPrice.textContent = `Total: Rs.${total}/-`;
+    }
+
+    // Show/hide UPI input based on payment method
+    document.getElementById("paymentMethod").addEventListener("change", (e) => {
+      const upiContainer = document.getElementById("upiInputContainer");
+      if (e.target.value === "upi") {
+        upiContainer.classList.remove("hidden");
+        document.getElementById("upiId").setAttribute("required", "required");
+      } else {
+        upiContainer.classList.add("hidden");
+        document.getElementById("upiId").removeAttribute("required");
+      }
+    });
+
+    // Handle order placement
+    document.getElementById("paymentForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      if (cart.length === 0) {
+        alert("Your cart is empty. Add products before placing an order.");
+        return;
+      }
+
+      const paymentMethod = document.getElementById("paymentMethod").value;
+      const upiId = document.getElementById("upiId").value.trim();
+
+      if (!paymentMethod) {
+        alert("Please select a payment method.");
+        return;
+      }
+
+      if (paymentMethod === "upi" && upiId === "") {
+        alert("Please enter your UPI ID.");
+        return;
+      }
+
+      const total = cart.reduce((acc, item) => acc + item.price, 0);
+      let message = `Order placed! Total: Rs.${total}/-. Payment method: ${paymentMethod.toUpperCase()}.`;
+      if (paymentMethod === "upi") {
+        message += ` UPI ID: ${upiId}`;
+      }
+
+      document.getElementById("orderMessage").textContent = message;
+      // Clear cart
+      cart.length = 0;
+      renderCart();
+      // Reset form
+      e.target.reset();
+      document.getElementById("upiInputContainer").classList.add("hidden");
+    });
   </script>
+
 </body>
 </html>
