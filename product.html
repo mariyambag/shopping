@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chiffon Shop</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chiffon Boutique</title>
   <style>
     body {
       margin: 0;
@@ -29,18 +29,6 @@
       margin: 0;
     }
 
-    nav {
-      display: flex;
-      align-items: center;
-    }
-
-    nav a {
-      margin-left: 1rem;
-      text-decoration: none;
-      color: #3a3a3a;
-      font-weight: bold;
-    }
-
     .menu-toggle {
       display: none;
       flex-direction: column;
@@ -55,15 +43,55 @@
       transition: 0.4s;
     }
 
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
     .nav-links {
       display: flex;
+    }
+
+    .nav-links a {
+      margin-left: 1rem;
+      text-decoration: none;
+      color: #3a3a3a;
+      font-weight: bold;
+    }
+
+    .toggle-mode {
+      margin-left: 1rem;
+      background-color: #ccc;
+      padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .dark-mode {
+      background-color: #1c1c1c;
+      color: #f5f5f5;
+    }
+
+    .dark-mode header,
+    .dark-mode footer,
+    .dark-mode .nav-links {
+      background-color: #333;
+    }
+
+    .home-section, .shop-section, .checkout-section {
+      display: none;
+      padding: 2rem;
+    }
+
+    .active-section {
+      display: block;
     }
 
     .product-container {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      padding: 2rem;
       gap: 2rem;
     }
 
@@ -110,6 +138,12 @@
       color: white;
     }
 
+    .btn-view {
+      background-color: #dcb2a8;
+      color: white;
+      font-size: 1.2rem;
+    }
+
     footer {
       text-align: center;
       padding: 1rem;
@@ -148,18 +182,13 @@
       color: white;
     }
 
-    .dark-mode {
-      background-color: #1c1c1c;
-      color: #f5f5f5;
+    .cart-list {
+      list-style: none;
+      padding-left: 0;
     }
 
-    .toggle-mode {
-      margin-left: 1rem;
-      background-color: #ccc;
-      padding: 0.4rem 0.8rem;
-      border-radius: 5px;
-      border: none;
-      cursor: pointer;
+    .cart-list li {
+      margin: 0.5rem 0;
     }
 
     @media (max-width: 768px) {
@@ -190,7 +219,7 @@
 </head>
 <body>
   <header>
-    <h1>Chiffon Shop</h1>
+    <h1>Chiffon Boutique</h1>
     <div class="menu-toggle" onclick="toggleMenu()">
       <span></span>
       <span></span>
@@ -198,73 +227,37 @@
     </div>
     <nav>
       <div class="nav-links" id="navLinks">
-        <a href="index.html">Home</a>
-        <a href="shop.html">Shop</a>
-        <a href="product.html">Products</a>
+        <a href="#" onclick="showSection('home')">Home</a>
+        <a href="#" onclick="showSection('shop')">Shop</a>
+        <a href="#" onclick="showSection('checkout')">Checkout</a>
         <button class="toggle-mode" onclick="toggleMode()">🌓</button>
       </div>
     </nav>
   </header>
 
-  <main class="product-container">
-    <div class="product-card">
-      <img src="floral summer dress.jpeg" alt="Product 1">
-      <h3>Floral Summer Dress</h3>
-      <p>Rs.299/-</p>
-      <div class="btn-group">
-        <button class="btn btn-cart">Add to Cart</button>
-        <button class="btn btn-buy">Buy Now</button>
-      </div>
+  <section id="home" class="home-section active-section">
+    <h2>Welcome to Chiffon Boutique</h2>
+    <p>Discover our elegant chiffon-inspired fashion collections!</p>
+    <button class="btn btn-view" onclick="showSection('shop')">Let's Shop</button>
+  </section>
+
+  <section id="shop" class="shop-section">
+    <h2>Our Products</h2>
+    <div class="product-container" id="productList">
+      <!-- Products will be inserted via JS -->
     </div>
-    <div class="product-card">
-      <img src="hoodie.jpeg" alt="Product 2">
-      <h3>Pastel Hoodie</h3>
-      <p>Rs.599/-</p>
-      <div class="btn-group">
-        <button class="btn btn-cart">Add to Cart</button>
-        <button class="btn btn-buy">Buy Now</button>
-      </div>
-    </div>
-    <div class="product-card">
-      <img src="denim jacket.jpeg" alt="Product 3">
-      <h3>Classic Denim Jacket</h3>
-      <p>Rs.899/-</p>
-      <div class="btn-group">
-        <button class="btn btn-cart">Add to Cart</button>
-        <button class="btn btn-buy">Buy Now</button>
-      </div>
-    </div>
-    <div class="product-card">
-      <img src="skirt.jpeg" alt="Product 4">
-      <h3>Boho Printed Skirt</h3>
-      <p>Rs.399/-</p>
-      <div class="btn-group">
-        <button class="btn btn-cart">Add to Cart</button>
-        <button class="btn btn-buy">Buy Now</button>
-      </div>
-    </div>
-    <div class="product-card">
-      <img src="sweater.jpeg" alt="Product 5">
-      <h3>Soft Knit Sweater</h3>
-      <p>Rs.399/-</p>
-      <div class="btn-group">
-        <button class="btn btn-cart">Add to Cart</button>
-        <button class="btn btn-buy">Buy Now</button>
-      </div>
-    </div>
-    <div class="product-card">
-      <img src="scarf.jpeg" alt="Product 6">
-      <h3>Silk Scarf</h3>
-      <p>Rs.199/-</p>
-      <div class="btn-group">
-        <button class="btn btn-cart">Add to Cart</button>
-        <button class="btn btn-buy">Buy Now</button>
-      </div>
-    </div>
-  </main>
+  </section>
+
+  <section id="checkout" class="checkout-section">
+    <h2>Your Cart</h2>
+    <ul class="cart-list" id="cartItems"></ul>
+    <p id="totalPrice">Total: Rs.0/-</p>
+    <button class="btn btn-buy" onclick="placeOrder()">Place Order</button>
+    <p id="orderMessage"></p>
+  </section>
 
   <div class="cookie-popup" id="cookiePopup">
-    <p>This site uses cookies for better shopping experience.</p>
+    <p>This site uses cookies for a better shopping experience.</p>
     <button class="accept-btn" onclick="acceptCookies()">Accept</button>
     <button class="reject-btn" onclick="rejectCookies()">Reject</button>
   </div>
@@ -274,13 +267,68 @@
   </footer>
 
   <script>
+    const products = [
+      { name: "Floral Summer Dress", price: 299, img: "floral summer dress.jpeg" },
+      { name: "Pastel Hoodie", price: 599, img: "hoodie.jpeg" },
+      { name: "Classic Denim Jacket", price: 899, img: "denim jacket.jpeg" },
+      { name: "Boho Printed Skirt", price: 399, img: "skirt.jpeg" },
+      { name: "Soft Knit Sweater", price: 399, img: "sweater.jpeg" },
+      { name: "Silk Scarf", price: 199, img: "scarf.jpeg" }
+    ];
+
+    const cart = [];
+
+    function showSection(section) {
+      document.querySelectorAll("section").forEach(s => s.classList.remove("active-section"));
+      document.getElementById(section).classList.add("active-section");
+      if (section === 'checkout') renderCart();
+    }
+
     function toggleMenu() {
-      const nav = document.getElementById('navLinks');
-      nav.classList.toggle('active');
+      document.getElementById('navLinks').classList.toggle('active');
     }
 
     function toggleMode() {
       document.body.classList.toggle('dark-mode');
+    }
+
+    function addToCart(index) {
+      cart.push(products[index]);
+      alert(`${products[index].name} added to cart!`);
+    }
+
+    function renderProducts() {
+      const container = document.getElementById("productList");
+      container.innerHTML = "";
+      products.forEach((product, index) => {
+        container.innerHTML += `
+          <div class="product-card">
+            <img src="${product.img}" alt="${product.name}" />
+            <h3>${product.name}</h3>
+            <p>Rs.${product.price}/-</p>
+            <div class="btn-group">
+              <button class="btn btn-cart" onclick="addToCart(${index})">Add to Cart</button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function renderCart() {
+      const cartItems = document.getElementById("cartItems");
+      const total = cart.reduce((acc, item) => acc + item.price, 0);
+      cartItems.innerHTML = cart.map(item => `<li>${item.name} - Rs.${item.price}/-</li>`).join('');
+      document.getElementById("totalPrice").innerText = `Total: Rs.${total}/-`;
+    }
+
+    function placeOrder() {
+      if (cart.length === 0) {
+        document.getElementById("orderMessage").innerText = "Cart is empty.";
+        return;
+      }
+      document.getElementById("orderMessage").innerText = "Order placed successfully! 🎉";
+      cart.length = 0;
+      renderCart();
     }
 
     function acceptCookies() {
@@ -291,6 +339,11 @@
       alert('Cookies rejected. Some features may be limited.');
       document.getElementById('cookiePopup').style.display = 'none';
     }
+
+    window.onload = function() {
+      renderProducts();
+      setTimeout(() => document.getElementById('cookiePopup').style.display = 'block', 500);
+    };
   </script>
 </body>
 </html>
