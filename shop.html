@@ -1,219 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="">
 <head>
   <meta charset="UTF-8" />
-       <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chiffon Shop</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #fff8f0;
-      color: #3a3a3a;
-      transition: background-color 0.3s, color 0.3s;
-      overflow-x: hidden;
-    }
-    header {
-      background: #f2e9e4;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    header h1 {
-      margin: 0;
-      color: #b98ca7;
-      cursor: default;
-      user-select: none;
-    }
-    nav {
-      display: flex;
-      align-items: center;
-    }
-    nav a {
-      margin-left: 1.5rem;
-      text-decoration: none;
-      color: #886a7e;
-      font-weight: 600;
-      transition: color 0.3s ease;
-    }
-    nav a:hover {
-      color: #b98ca7;
-    }
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      margin-left: 1rem;
-    }
-    .menu-toggle span {
-      width: 25px;
-      height: 3px;
-      background: #886a7e;
-      margin: 4px 0;
-      border-radius: 2px;
-      transition: all 0.3s ease;
-    }
-    .nav-links {
-      display: flex;
-    }
-    @media (max-width: 768px) {
-      .menu-toggle {
-        display: flex;
-      }
-      .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        right: 20px;
-        background: #f2e9e4;
-        padding: 1rem 1.5rem;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      }
-      .nav-links.active {
-        display: flex;
-      }
-      nav a {
-        margin: 0.5rem 0;
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            chiffonLight: '#fff8f0',
+            chiffonAccent: '#b98ca7',
+            chiffonText: '#886a7e',
+            darkBg: '#1c1c1c',
+            darkHeader: '#332c2c',
+            acceptBtn: '#a1cbbb',
+            rejectBtn: '#f2a6a6'
+          }
+        }
       }
     }
-    .toggle-mode {
-      margin-left: 1rem;
-      background-color: #cbb4a9;
-      border: none;
-      padding: 0.4rem 0.8rem;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: 600;
-      color: white;
-      user-select: none;
-    }
-    /* Cookie popup */
-    .cookie-popup {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #fff;
-      border: 1px solid #ccc;
-      padding: 1rem 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      z-index: 9999;
-      max-width: 300px;
-      font-size: 0.9rem;
-      color: #3a3a3a;
-    }
-    .cookie-popup p {
-      margin: 0 0 0.5rem 0;
-    }
-    .cookie-popup button {
-      margin-right: 0.5rem;
-      padding: 0.4rem 0.9rem;
-      border: none;
-      border-radius: 5px;
-      font-weight: 600;
-      cursor: pointer;
-      color: white;
-      user-select: none;
-    }
-    .accept-btn {
-      background-color: #a1cbbb;
-    }
-    .reject-btn {
-      background-color: #f2a6a6;
-    }
-    /* Dark mode */
-    .dark-mode {
-      background: #1c1c1c;
-      color: #f5f5f5;
-    }
-    .dark-mode header {
-      background: #332c2c;
-    }
-    .dark-mode nav a {
-      color: #cbb4a9;
-    }
-    .dark-mode nav a:hover {
-      color: #e2cfc3;
-    }
-    .dark-mode .cookie-popup {
-      background: #332c2c;
-      border-color: #666;
-      color: #e2cfc3;
-    }
-    .dark-mode .accept-btn {
-      background-color: #4a7a6f;
-    }
-    .dark-mode .reject-btn {
-      background-color: #a85757;
-    }
-
-  </style>
+  </script>
 </head>
-<body>
-  <header>
-    <h1>Chiffon Shop</h1>
-    <nav>
-      <div class="menu-toggle" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-      </div>
-      <div class="nav-links" id="navLinks">
-        <a href="index.html">Portfolio</a>
-        <a href="shop.html">Shop</a>
-        <a href="product.html">Products</a>
-        <button class="toggle-mode" onclick="toggleMode()">🌓</button>
-      </div>
-    </nav>
+<body class="bg-chiffonLight text-chiffonText transition-colors duration-300 dark:bg-darkBg dark:text-white">
+  <header class="bg-[#f2e9e4] dark:bg-darkHeader sticky top-0 z-50 px-4 py-3 flex justify-between items-center shadow">
+    <h1 class="text-chiffonAccent font-bold text-xl">Chiffon Shop</h1>
+    <div class="flex items-center space-x-4">
+      <button id="menuToggle" class="md:hidden text-2xl">&#9776;</button>
+      <nav id="navLinks" class="hidden md:flex space-x-6 bg-[#f2e9e4] dark:bg-darkHeader md:bg-transparent md:dark:bg-transparent absolute md:relative top-16 md:top-0 right-4 md:right-0 flex-col md:flex-row rounded-lg p-4 md:p-0 shadow md:shadow-none">
+        <a href="index.html" class="hover:text-chiffonAccent">Portfolio</a>
+        <a href="shop.html" class="hover:text-chiffonAccent">Shop</a>
+        <a href="product.html" class="hover:text-chiffonAccent">Products</a>
+        <button onclick="toggleMode()" id="toggleIcon" class="ml-2 text-xl">
+          🌙
+        </button>
+      </nav>
+    </div>
   </header>
 
-  <main style="padding: 3rem; text-align:center; max-width:600px; margin:auto;">
-    <h2 style="color:#b98ca7; margin-bottom:1rem;">Welcome to Mariyam's Chiffon Shop!</h2>
-    <p style="color:#886a7e; font-size:1.1rem; margin-bottom:2rem;">
+  <main class="max-w-3xl mx-auto text-center px-4 py-16">
+    <h2 class="text-chiffonAccent text-3xl font-semibold mb-4">Welcome to Mariyam's Chiffon Shop!</h2>
+    <p class="text-lg mb-6">
       Browse our beautiful chiffon collection of dresses, scarves, and accessories.
     </p>
-    <a href="product.html" style="background:#b98ca7; color:white; padding:0.8rem 1.5rem; border-radius: 8px; text-decoration:none; font-weight:600; transition: background 0.3s ease;">
-      Shop Now
+    <a href="product.html" class="bg-chiffonAccent text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#d6abc2] transition">
+      Let’s Shop
     </a>
   </main>
 
-  <div class="cookie-popup" id="cookiePopup">
-    <p>This site uses cookies to improve your shopping experience.</p>
-    <button class="accept-btn" onclick="acceptCookies()">Accept</button>
-    <button class="reject-btn" onclick="rejectCookies()">Reject</button>
+  <!-- Cookie Modal Popup -->
+  <div id="cookieBackdrop" class="fixed inset-0 bg-black bg-opacity-40 z-40 hidden"></div>
+
+  <div id="cookiePopup" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+    <div class="bg-white dark:bg-darkHeader text-chiffonText dark:text-white border border-gray-300 dark:border-gray-600 rounded-lg shadow-xl p-6 w-80 max-w-full">
+      <p class="mb-4 text-sm">This site uses cookies to improve your shopping experience.</p>
+      <div class="flex justify-end space-x-2">
+        <button onclick="acceptCookies()" class="bg-acceptBtn text-white px-4 py-1.5 rounded font-semibold">Accept</button>
+        <button onclick="rejectCookies()" class="bg-rejectBtn text-white px-4 py-1.5 rounded font-semibold">Reject</button>
+      </div>
+    </div>
   </div>
 
-<script>
-  function toggleMenu() {
-    document.getElementById('navLinks').classList.toggle('active');
-  }
-
-  function toggleMode() {
-    document.body.classList.toggle('dark-mode');
-  }
-
-  function acceptCookies() {
-    localStorage.setItem('cookieConsent', 'accepted');
-    document.getElementById('cookiePopup').style.display = 'none';
-  }
-
-  function rejectCookies() {
-    alert('You rejected cookies. Some features may be limited.');
-    localStorage.setItem('cookieConsent', 'rejected');
-    document.getElementById('cookiePopup').style.display = 'none';
-  }
-
-  // Show cookie popup only if no decision yet
-  window.onload = () => {
-    const consent = localStorage.getItem('cookieConsent');
-    if (consent === 'accepted' || consent === 'rejected') {
-      document.getElementById('cookiePopup').style.display = 'none';
+  <script>
+    // Toggle Dark Mode
+    function toggleMode() {
+      const html = document.documentElement;
+      const icon = document.getElementById("toggleIcon");
+      html.classList.toggle("dark");
+      icon.textContent = html.classList.contains("dark") ? "☀️" : "🌙";
     }
-  }
-</script>
+
+    // Mobile Navbar Toggle
+    document.getElementById("menuToggle").addEventListener("click", () => {
+      const nav = document.getElementById("navLinks");
+      nav.classList.toggle("hidden");
+    });
+
+    // Cookie Consent Logic
+    function acceptCookies() {
+      localStorage.setItem('cookieConsent', 'accepted');
+      document.getElementById('cookiePopup').classList.add('hidden');
+      document.getElementById('cookieBackdrop').classList.add('hidden');
+    }
+
+    function rejectCookies() {
+      localStorage.setItem('cookieConsent', 'rejected');
+      alert("You rejected cookies. Some features may be limited.");
+      document.getElementById('cookiePopup').classList.add('hidden');
+      document.getElementById('cookieBackdrop').classList.add('hidden');
+    }
+
+    // Show Cookie Modal if no prior consent
+    window.onload = () => {
+      const consent = localStorage.getItem('cookieConsent');
+      if (consent !== 'accepted' && consent !== 'rejected') {
+        document.getElementById('cookiePopup').classList.remove('hidden');
+        document.getElementById('cookieBackdrop').classList.remove('hidden');
+      }
+    }
+  </script>
 </body>
 </html>
